@@ -24,7 +24,7 @@ class Square:
             if (value < 0):
                 raise ValueError('size must be >= 0')
             self.__size = value
-    
+
     @property
     def position(self):
         """ retrieve the initial potition """
@@ -41,17 +41,17 @@ class Square:
         else:
             for t in value:
                 if (t < 0):
-                raise TypeError(s)
+                    raise TypeError(s)
             elif (type(t) is not int):
                 raise TypeError(S)
         self.__position = value
 
     def area(self):
         """ Return the area of the square"""
-            return (self.__size * self.__size)
+    return (self.__size * self.__size)
 
     def my_print(self):
-    """ prints in stdout the square with the character # """
+        """ prints in stdout the square with the character # """
         if (self.size != 0):
             for n in range(self.__position[1]):
                 print("")
@@ -60,7 +60,7 @@ class Square:
                     if (y < self.__position[0]):
                         print(" ", end="")
                     else:
-                      print("#", end='')
+                        print("#", end='')
             print('')
         else:
             print('')

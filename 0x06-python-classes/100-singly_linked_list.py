@@ -1,78 +1,83 @@
 #!/usr/bin/python3
-"""Singly Linked Lists module.
-
-This module contains methods about the creation and hendling of
-SinglyLinkedList and Node objects.
-
-"""
 
 
-class Node():
-    """Defines a node of a singly linked list."""
+class Node:
+    """Node of a singly linked list.
+    Private instance attribute: data:
+        - property def data(self)
+        - property setter def data(self, value)
+    Private instance attribute: next_node:
+        - property def next_node(self)
+        - property setter def next_node(self, value)
+    Instantiation with data and next_node.
+    """
 
     def __init__(self, data, next_node=None):
-        """Sets the necessary attributes for the Node object.
-
-        Args:
-            data (int): the value of the node
-            next_node (Node): the next Node
-        """
+        """Initializes the data of the node."""
         self.data = data
         self.next_node = next_node
 
-@property
-def data(self):
-    """Get or set the data value of a node."""
-    return self.__data
+    @property
+    def data(self):
+        """Retrieves the data from the node."""
+        return self.__data
 
-@data.setter
-def data(self, value):
-    if type(value) is int:
+    @data.setter
+    def data(self, value):
+        """Sets the data into a node."""
+        if not isinstance(value, int):
+            raise TypeError("data must be an integer")
         self.__data = value
-    else:
-        raise TypeError("data must be an integer")
 
-@property
-def next_node(self):
-    """Get or set the next node of the current node."""
+    @property
+    def next_node(self):
+        """Retrieves the next_node."""
         return self.__next_node
 
-
-@next_node.setter
-def next_node(self, value):
-    if type(value) is Node or value is None:
+    @next_node.setter
+    def next_node(self, value):
+        """Sets the next_node."""
+        if not isinstance(value, Node) and value is not None:
+            raise TypeError("next_node must be a Node object")
         self.__next_node = value
-    else:
-        raise TypeError("next_node must be a Node object")
 
 
-class SinglyLinkedList():
-    """Defines a singly linked list"
-       
+class SinglyLinkedList:
+    """ Singly linked list.
+    Private instance attribute: head.
+    Simple instantiation.
+    Public instance method: def sorted_insert(self, value).
+    """
+
     def __init__(self):
-        """Sets the necessary attributes for the SinglyLinkedList object."""
-        self.__head = None
+        """Initializes the linked list."""
+        self.head = None
 
-    def __str__(sel
-        """Sets the print behavior of the SinglyLinkedList object."""
-        sll_str = ""
-        node = self.__head
-
-    if node is not None:
-        while node is not None:
-            sll_str += str(node.data) + '\n'
+    def __str__(self):
+        """For the print statement in the main file."""
+        my_str = ""
+        node = self.head
+        while node:
+            my_str += str(node.data)
+            my_str += '\n'
             node = node.next_node
-
-    return sll_str[:-1]
-
+        return my_str[:-1]
 
     def sorted_insert(self, value):
-        node = self.__head
+        """Inserts a node in a sorted linked list."""
+        new_node = Node(value)
 
+        if self.head is None:
+            self.head = new_node
+            return
 
-        if node is None or self.__head.data >= value:
-            self.__head = Node(value, self.__head)
-        else:
-            while node.next_node is not None and node.next_node.data < value:
-                node = node.next_node
-            node.next_node = Node(value, node.next_node)
+        if value < self.head.data:
+            new_node.next_node = self.head
+            self.head = new_node
+            return
+
+        node = self.head
+        while node.next_node and node.next_node.data < value:
+            node = node.next_node
+        new_node.next_node = node.next_node
+        node.next_node = new_node
